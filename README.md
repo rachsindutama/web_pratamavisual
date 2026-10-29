@@ -1,12 +1,12 @@
-# 📸 PRATAMAVISUAL — Portfolio & Client Portal System
+# PRATAMAVISUAL — Portfolio & Client Portal System
 
 > **Platform Web Fotografi & Videografi Terpadu** yang menggabungkan website portofolio interaktif, pemesanan sesi online (*Client Booking*), portal klien (*Client Portal*), dan sistem manajemen studio / CMS admin (*Admin Dashboard*). Dilengkapi dengan arsitektur penyimpanan hibrida (*Hybrid Storage Architecture*) untuk pengiriman file berukuran besar secara hemat biaya.
 
 ---
 
-## 🌟 Fitur Utama
+## Fitur Utama
 
-### 1. 🌐 Public Experience (Portofolio Publik)
+### 1. Public Experience (Portofolio Publik)
 - **Cinematic Visual Experience**: Tampilan modern dengan tema gelap elegan, tipografi tajam, transisi halus, dan animasi responsif.
 - **Dynamic Site Branding**: Konten hero, kutipan (*quote*), tautan navigasi, branding, dan footer dikelola dinamis melalui database.
 - **Kategori & Album Galeri**:
@@ -22,7 +22,7 @@
 
 ---
 
-### 2. 👤 Client Portal (Area Klien)
+### 2. Client Portal (Area Klien)
 - **Manajemen Booking Klien**: Pelacakan status jadwal pemotretan, riwayat pembayaran cicilan/DP, serta invoice digital.
 - **My Photos**: Galeri foto khusus klien dengan kemampuan pratinjau resolusi tinggi.
 - **My Files (Hybrid File Storage)**: Pengunduhan file mentah (*RAW files*), arsip ZIP, dan video beresolusi penuh melalui koneksi server studio.
@@ -31,7 +31,7 @@
 
 ---
 
-### 3. 🛡️ Admin CMS & Studio Management
+### 3. Admin CMS & Studio Management
 - **Dashboard Analitik**: Ringkasan performa studio, statistik kunjungan, dan status pemesanan aktif.
 - **Manajemen Booking & Invoice**: Penjadwalan kalender, konfirmasi status (*Pending, Confirmed, Completed, Cancelled*), pencatatan termin pembayaran, dan pengunduhan bukti invoice.
 - **Buku Kas & Pajak (Cashflow & Tax)**: Pencatatan arus kas pemasukan dan pengeluaran studio, serta kalkulasi estimasi pajak (PPh / PPN).
@@ -43,7 +43,7 @@
 
 ---
 
-### 4. ⚡ Backend, Cloud Functions & SEO SSR
+### 4. Backend, Cloud Functions & SEO SSR
 - **Serverless Cloud Functions**:
   - Otomatisasi pengiriman notifikasi Push (FCM) kepada Admin saat ada booking baru atau pesan masuk.
   - **Dynamic OpenGraph SEO SSR**: Menyuntikkan meta tag media sosial (`og:title`, `og:image`, `og:description`, dan JSON-LD schema) secara langsung pada bot/crawler (WhatsApp, Telegram, Facebook, Twitter) tanpa memerlukan framework SSR yang rumit.
@@ -51,7 +51,7 @@
 
 ---
 
-## 🏗️ Arsitektur Sistem
+## Arsitektur Sistem
 
 ```
                       +-----------------------------------+
@@ -90,7 +90,7 @@
 
 ---
 
-## 💻 Tech Stack
+## Tech Stack
 
 | Kategori | Teknologi | Deskripsi |
 | :--- | :--- | :--- |
@@ -107,7 +107,7 @@
 
 ---
 
-## 📁 Struktur Direktori
+## Struktur Direktori
 
 ```
 web_pratamavisual/
@@ -160,7 +160,7 @@ web_pratamavisual/
 
 ---
 
-## 🚀 Panduan Memulai (Local Development)
+## Panduan Memulai (Local Development)
 
 ### 1. Prasyarat Sistem
 - **Node.js**: versi 20 atau yang lebih baru ([Unduh Node.js](https://nodejs.org/))
@@ -194,12 +194,12 @@ Buat file `.env` pada direktori root proyek:
 
 ```env
 # Firebase Web Client Configuration
-VITE_FIREBASE_API_KEY=AIzaSy...
-VITE_FIREBASE_AUTH_DOMAIN=pratamavisual.firebaseapp.com
-VITE_FIREBASE_PROJECT_ID=pratamavisual
-VITE_FIREBASE_STORAGE_BUCKET=pratamavisual.firebasestorage.app
-VITE_FIREBASE_MESSAGING_SENDER_ID=149337703504
-VITE_FIREBASE_APP_ID=1:149337703504:web:...
+VITE_FIREBASE_API_KEY=...
+VITE_FIREBASE_AUTH_DOMAIN=...
+VITE_FIREBASE_PROJECT_ID=...
+VITE_FIREBASE_STORAGE_BUCKET=...
+VITE_FIREBASE_MESSAGING_SENDER_ID=...
+VITE_FIREBASE_APP_ID=...
 VITE_FIREBASE_VAPID_KEY=B...
 
 # Admin & Server Integrations
@@ -227,7 +227,7 @@ File server akan berjalan pada `http://localhost:4567`.
 
 ---
 
-## 📦 Build & Deployment
+## Build & Deployment
 
 ### 1. Build Bundle Frontend untuk Produksi
 ```bash
@@ -251,7 +251,7 @@ firebase deploy --only storage:rules
 
 ---
 
-## 🔒 Praktik Keamanan & Proteksi Data
+## Praktik Keamanan & Proteksi Data
 
 1. **Proteksi Kredensial**:
    - Seluruh kunci privat (seperti file `service-account.json`) dan token konfigurasi lingkungan (`.env`) secara ketat diatur dalam `.gitignore` dan tidak boleh di-push ke repository publik.
@@ -262,7 +262,7 @@ firebase deploy --only storage:rules
 
 ---
 
-## 📄 Lisensi & Hak Cipta
+## Lisensi & Hak Cipta
 
 © 2026 **PRATAMAVISUAL**. Seluruh hak cipta dilindungi undang-undang.  
-Didesain dan dikembangkan secara eksklusif untuk portofolio dan sistem operasional Pratamavisual.
+Didesain dan dikembangkan secara eksklusif untuk portofolio dan sistem operasional PT Pratamavisual Media Kreatif.
