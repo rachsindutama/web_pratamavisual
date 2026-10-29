@@ -1,0 +1,377 @@
+/* ================================================================
+   AUTH — Split Screen Layout
+   Left: Cinematic Cover | Right: Login Form
+   ================================================================ */
+
+/* ── OUTER WRAPPER: full viewport, side-by-side ── */
+.auth-split {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* ══════════════════════════════════════════
+   LEFT COVER PANEL
+══════════════════════════════════════════ */
+.auth-cover {
+  position: relative;
+  flex: 0 0 58%;        /* cover takes 58% width */
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* The actual photo — uses CSS background instead of <img> for reliability */
+.auth-cover__bg {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-bg-dark, #0d0d0d);
+  background-size: cover;
+  background-position: center 25%;
+  animation: coverZoom 20s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes coverZoom {
+  from { transform: scale(1);    }
+  to   { transform: scale(1.06); }
+}
+
+/* Gradient: darker on corners, lighter in center */
+.auth-cover__overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right,  rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.10) 60%),
+    linear-gradient(to bottom, rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.10) 40%, rgba(0,0,0,0.80) 100%);
+}
+
+/* Content sitting on top of photo + overlay */
+.auth-cover__body {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 3.5rem 4.5rem;
+}
+
+/* Brand label */
+.auth-cover__brand {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: #C9A96E;
+  margin-bottom: 1.25rem;
+  animation: fadeInUp 0.9s ease 0.3s both;
+}
+
+/* Gold thin line */
+.auth-cover__line {
+  width: 44px;
+  height: 1px;
+  background: linear-gradient(90deg, #C9A96E, transparent);
+  margin-bottom: 1.75rem;
+  animation: fadeInUp 0.9s ease 0.5s both;
+}
+
+/* Big headline from SEO Title */
+.auth-cover__title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 300;
+  line-height: 1.15;
+  color: #fff;
+  margin-bottom: 1.25rem;
+  animation: fadeInUp 0.9s ease 0.65s both;
+}
+
+.auth-cover__title span {
+  display: block;
+  font-size: clamp(2rem, 3.2vw, 3.5rem);
+  letter-spacing: -0.01em;
+}
+
+.auth-cover__title em {
+  display: block;
+  font-size: clamp(1rem, 1.6vw, 1.4rem);
+  font-style: italic;
+  font-weight: 300;
+  color: rgba(255,255,255,0.65);
+  margin-top: 0.4rem;
+  letter-spacing: 0.03em;
+}
+
+/* SEO Description */
+.auth-cover__desc {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.60);
+  letter-spacing: 0.04em;
+  line-height: 1.9;
+  max-width: 340px;
+  margin-bottom: 2rem;
+  animation: fadeInUp 0.9s ease 0.8s both;
+}
+
+/* Service tags */
+.auth-cover__tags {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  animation: fadeInUp 0.9s ease 1s both;
+}
+
+.auth-cover__tags span {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(201,169,110,0.8);
+}
+
+.auth-cover__dot {
+  width: 3px !important;
+  height: 3px !important;
+  border-radius: 50% !important;
+  background: rgba(201,169,110,0.45) !important;
+  letter-spacing: 0 !important;
+}
+
+/* Bottom-left location text */
+.auth-cover__location {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 2;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.28);
+  animation: fadeIn 1.5s ease 1.2s both;
+}
+
+/* ══════════════════════════════════════════
+   RIGHT FORM PANEL
+══════════════════════════════════════════ */
+.auth-panel {
+  flex: 0 0 42%;           /* fixed 42% — snug, not sprawling */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0d0d0d;
+  padding: 3rem 2rem;
+  min-height: 100vh;
+}
+
+/* ── AUTH CARD (form container) ── */
+/* auth-panel__inner di-key berdasarkan route → fadeInUp selalu replay saat navigasi */
+.auth-panel__inner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: authFormIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes authFormIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 360px;        /* standar industry: 360-400px */
+  animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+.auth-card__brand {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  text-align: center;
+  color: #C9A96E;
+  margin-bottom: 2.5rem;
+}
+
+.auth-card__title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2.25rem;
+  font-weight: 400;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.auth-card__subtitle {
+  font-size: 0.8rem;
+  font-weight: 300;
+  text-align: center;
+  color: #888;
+  margin-bottom: 2.25rem;
+  letter-spacing: 0.02em;
+}
+
+.auth-card .form-input {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
+  border-radius: 6px;
+  padding: 0.85rem 1.1rem;
+}
+
+.auth-card .form-input:focus {
+  border-color: #C9A96E;
+  background: rgba(255,255,255,0.06);
+  box-shadow: 0 0 0 3px rgba(201,169,110,0.08);
+}
+
+.auth-card .form-input::placeholder { color: #555; }
+
+.auth-card__pw-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.auth-card__forgot {
+  background: none;
+  border: none;
+  color: #C9A96E;
+  font-size: 0.72rem;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+.auth-card__forgot:hover { color: #D4B883; }
+
+.auth-card__submit {
+  width: 100%;
+  margin-top: 0.75rem;
+}
+
+.auth-card__error {
+  background: rgba(214,69,69,0.08);
+  border: 1px solid rgba(214,69,69,0.2);
+  color: #D64545;
+  padding: 0.875rem 1rem;
+  font-size: 0.8rem;
+  border-radius: 6px;
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+.auth-card__success {
+  background: rgba(45,139,78,0.08);
+  border: 1px solid rgba(45,139,78,0.2);
+  color: #2D8B4E;
+  padding: 0.875rem 1rem;
+  font-size: 0.8rem;
+  border-radius: 6px;
+  margin-bottom: 1.25rem;
+  text-align: center;
+}
+
+.auth-card__divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.auth-card__divider::before,
+.auth-card__divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+}
+
+.auth-card__divider span {
+  font-size: 0.65rem;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.auth-card__footer {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: #666;
+}
+
+.auth-card__footer a {
+  color: #C9A96E;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.auth-card__footer a:hover { color: #D4B883; }
+
+/* ── Animations (reuse global ones + local) ── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+
+/* Mobile — sembunyikan cover, tampilkan form saja seperti semula */
+@media (max-width: 900px) {
+  .auth-split {
+    flex-direction: column;
+  }
+
+  /* Sembunyikan cover panel sepenuhnya di mobile */
+  .auth-cover {
+    display: none;
+  }
+
+  /* Form panel mengisi seluruh layar */
+  .auth-panel {
+    min-height: 100vh;
+    padding: 3rem 1.5rem;
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-panel {
+    padding: 2.5rem 1.25rem;
+  }
+
+  .auth-card__title {
+    font-size: 1.875rem;
+  }
+}
+
+/* ── Fallback for old .auth-page class (Register page) ── */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  background: #0d0d0d;
+}

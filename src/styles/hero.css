@@ -1,0 +1,141 @@
+/* ================================================================
+   HERO SECTION
+   ================================================================ */
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 85vh;
+  min-height: 500px;
+  max-height: 900px;
+  overflow: hidden;
+}
+
+.hero--full {
+  height: 100vh;
+  max-height: none;
+}
+
+.hero--gallery {
+  height: 70vh;
+  max-height: 700px;
+}
+
+.hero__image-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+.hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  animation: kenBurns 20s ease-in-out infinite alternate;
+}
+
+.hero__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-bg-overlay);
+}
+
+.hero__content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-2xl);
+  color: #ffffff;
+  z-index: 1;
+}
+
+.hero__quote {
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 4vw, 3.5rem);
+  font-weight: 300;
+  line-height: 1.3;
+  max-width: 700px;
+  margin-bottom: var(--space-lg);
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.hero__subquote {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  opacity: 0.85;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+  margin-bottom: var(--space-xl);
+}
+
+.btn-hero {
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  color: #ffffff !important;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  padding: 0.75rem 2.5rem;
+  margin-top: var(--space-2xl);
+  transition: all var(--transition-base);
+  background: transparent !important;
+  cursor: pointer;
+}
+
+.btn-hero:hover {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border-color: #ffffff !important;
+}
+
+/* Hero without overlay for homepage */
+.hero--no-overlay .hero__image {
+  animation: none;
+}
+
+/* Loading placeholder */
+.hero__placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-bg-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    height: 100vh;
+    min-height: 100vh;
+    max-height: none;
+  }
+
+  .hero--full {
+    height: 100vh;
+  }
+
+  .hero--gallery {
+    height: 100vh;
+    max-height: none;
+  }
+
+  .hero__quote {
+    font-size: clamp(1.5rem, 6vw, 2.25rem);
+  }
+}

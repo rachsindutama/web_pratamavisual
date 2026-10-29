@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" id="dynamic-favicon" href="/favicon.svg" />
+  <link rel="manifest" id="dynamic-manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#0B0B0B" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="google-site-verification" content="jlmyqzfMmheH1bFi9OlSBCJyfKx8RlTpalkBHoyd5q0" />
+  <link rel="canonical" href="__OG_URL__" />
+  <title>__OG_TITLE__</title>
+  <meta name="description" content="__OG_DESC__" />
+  <meta property="og:title" content="__OG_TITLE__" />
+  <meta property="og:description" content="__OG_DESC__" />
+  <meta property="og:image" content="__OG_IMAGE__" />
+  <meta property="og:url" content="__OG_URL__" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="__OG_TITLE__" />
+  <meta name="twitter:description" content="__OG_DESC__" />
+  <meta name="twitter:image" content="__OG_IMAGE__" />
+  <script type="application/ld+json">__JSON_LD__</script>
+  <script>
+    (function () {
+      var ADMIN_ID = ''; // Hid per user request
+      var cachedSettings = null;
+
+      try {
+        cachedSettings = JSON.parse(localStorage.getItem('cached_site_settings') || 'null');
+        // Legacy support
+        if (!cachedSettings && localStorage.getItem('cached_favicon')) {
+          cachedSettings = { faviconUrl: localStorage.getItem('cached_favicon') };
+        }
+      } catch (e) { }
+
+      // If title is still a raw placeholder, clear it immediately
+      if (document.title === '__OG_TITLE__') {
+        document.title = '';
+      }
+
+      function updateMeta(attrName, attrValue, content) {
+        if (!content) return;
+        var el = document.querySelector('meta[' + attrName + '="' + attrValue + '"]');
+        if (!el) {
+          el = document.createElement('meta');
+          el.setAttribute(attrName, attrValue);
+          document.head.appendChild(el);
+        }
+        el.setAttribute('content', content);
+      }
+
+      function applySettings(settings) {
+        if (!settings) return;
+
+        if (settings.faviconUrl) {
+          document.getElementById('dynamic-favicon').href = settings.faviconUrl;
+          var manifest = {
+            "name": settings.seoTitle || "",
+            "short_name": settings.seoTitle || "",
+            "description": settings.seoDescription || "",
+            "start_url": "/",
+            "id": "/",
+            "display": "standalone",
+            "background_color": "#0B0B0B",
+            "theme_color": "#0B0B0B",
+            "icons": [
+              { "src": settings.faviconUrl, "sizes": "192x192", "type": "image/png", "purpose": "any" },
+              { "src": settings.faviconUrl, "sizes": "512x512", "type": "image/png", "purpose": "any" }
+            ]
+          };
+          var blob = new Blob([JSON.stringify(manifest)], { type: 'application/json' });
+          document.getElementById('dynamic-manifest').href = URL.createObjectURL(blob);
+        }
+
+        if (settings.seoTitle) {
+          document.title = settings.seoTitle;
+          updateMeta('property', 'og:title', settings.seoTitle);
+        }
+        if (settings.seoDescription) {
+          updateMeta('name', 'description', settings.seoDescription);
+          updateMeta('property', 'og:description', settings.seoDescription);
+        }
+        if (settings.seoKeywords) {
+          updateMeta('name', 'keywords', settings.seoKeywords);
+        }
+        if (settings.seoOgImage) {
+          updateMeta('property', 'og:image', settings.seoOgImage);
+        }
+      }
+
+      function fetchAndUpdate(sync) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://firestore.googleapis.com/v1/projects/pratamavisual/databases/(default)/documents/siteSettings/' + ADMIN_ID + '?mask.fieldPaths=faviconUrl&mask.fieldPaths=seoTitle&mask.fieldPaths=seoDescription&mask.fieldPaths=seoKeywords&mask.fieldPaths=portfolioHero', !sync);
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            try {
+              var data = JSON.parse(xhr.responseText);
+              var fields = data.fields || (data.documents && data.documents.length > 0 ? data.documents[0].fields : {});
+              var settings = {
+                faviconUrl: fields.faviconUrl ? fields.faviconUrl.stringValue : null,
+                seoTitle: fields.seoTitle ? fields.seoTitle.stringValue : null,
+                seoDescription: fields.seoDescription ? fields.seoDescription.stringValue : null,
+                seoKeywords: fields.seoKeywords ? fields.seoKeywords.stringValue : null,
+                seoOgImage: fields.portfolioHero && fields.portfolioHero.mapValue && fields.portfolioHero.mapValue.fields && fields.portfolioHero.mapValue.fields.imageUrl ? fields.portfolioHero.mapValue.fields.imageUrl.stringValue : null,
+              };
+              localStorage.setItem('cached_site_settings', JSON.stringify(settings));
+              applySettings(settings);
+            } catch (e) { }
+          }
+        };
+        try { xhr.send(); } catch (e) { }
+      }
+
+      if (cachedSettings && cachedSettings.seoTitle) {
+        // Apply from cache first for fast render (instant, no flicker)
+        applySettings(cachedSettings);
+        // Fetch asynchronously to update stale cache
+        fetchAndUpdate(false);
+      } else {
+        // Fetch from Firestore REST API (Synchronous for initial render)
+        fetchAndUpdate(true);
+      }
+    })();
+  </script>
+  <script type="module" crossorigin src="/assets/index-CRfc-Erd.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-BtnB-v1p.css">
+</head>
+
+<body>
+  <div id="root"></div>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/firebase-messaging-sw.js')
+          .then(function (reg) { console.log('SW registered!', reg); })
+          .catch(function (err) { console.log('SW registration failed', err); });
+      });
+    }
+  </script>
+  <script>
+    // Disable right-click globally to prevent image downloads
+    document.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
+    });
+  </script>
+</body>
+
+</html>
